@@ -99,9 +99,9 @@ const servicesData: ServiceDetail[] = [
 /* ---------- Header ---------- */
 
 const ServicesHeader: React.FC = () => (
-  <div className="relative h-[50vh] w-full flex items-center justify-center text-center overflow-hidden">
+  <div className="relative h-[70vh] w-full flex items-center justify-center text-center overflow-hidden">
     <img
-      src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1920&auto=format&fit=crop"
+      src="https://images.unsplash.com/photo-1717386255773-1e3037c81788?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       alt="Services background"
       className="absolute inset-0 w-full h-full object-cover"
     />

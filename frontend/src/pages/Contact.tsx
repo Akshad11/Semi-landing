@@ -6,9 +6,9 @@ import Navbar from "../components/Navbar";
 /* ---------- Header ---------- */
 
 const ContactHeader: React.FC = () => (
-  <div className="relative h-[50vh] w-full flex items-center justify-center text-center overflow-hidden">
+  <div className="relative h-[70vh] w-full flex items-center justify-center text-center overflow-hidden">
     <img
-      src="https://images.unsplash.com/photo-1523966211575-eb4a01e7dd51?q=80&w=1920&auto=format&fit=crop"
+      src="https://images.unsplash.com/photo-1587560699334-bea93391dcef?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       alt="Contact background"
       className="absolute inset-0 w-full h-full object-cover"
     />

@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Flag, Target, Users } from "lucide-react";
 import Navbar from "../components/Navbar";
+import CtaBanner from "../components/CtaBanner";
 interface AboutCompanySectionProps {
   title?: string;
   description: string;
@@ -9,10 +10,10 @@ interface AboutCompanySectionProps {
 /* ---------------- Header ---------------- */
 
 const AboutHeader: React.FC = () => (
-  <div className="relative h-[60vh] w-full flex items-center justify-center text-center overflow-hidden">
+  <div className="relative h-[70vh] w-full flex items-center justify-center text-center overflow-hidden">
     {/* Background Image */}
     <img
-      src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1920&auto=format&fit=crop"
+      src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       alt="About background"
       className="absolute inset-0 w-full h-full object-cover"
     />
@@ -180,6 +181,7 @@ const About: React.FC = () => {
       />
       <MissionSection />
       {/* <TimelineSection /> */}
+      <CtaBanner />
     </div>
   </>
   );

@@ -73,9 +73,9 @@ const features = [
 /* ---------- Header ---------- */
 
 const WhyHeader: React.FC = () => (
-  <div className="relative h-[50vh] w-full flex items-center justify-center text-center overflow-hidden">
+  <div className="relative h-[70vh] w-full flex items-center justify-center text-center overflow-hidden">
     <img
-      src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1920&auto=format&fit=crop"
+      src="https://plus.unsplash.com/premium_photo-1682144748274-add3d8ed04ea?q=80&w=2034&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       alt="Why Zyron"
       className="absolute inset-0 w-full h-full object-cover"
     />
