@@ -113,7 +113,7 @@ const ServicesHeader: React.FC = () => (
         animate={{ opacity: 1, y: 0 }}
         className="text-4xl md:text-6xl font-bold mb-6 text-white"
       >
-        Our <span className="text-blue-400">Expertise</span>
+        Our <span className="text-blue-400">Services</span>
       </motion.h1>
       <p className="text-gray-200 max-w-2xl mx-auto text-lg">
         We offer a full spectrum of semiconductor engineering services, from
@@ -249,7 +249,7 @@ const Services: React.FC = () => {
     </div>
     <div className=" bg-white">
 
-      <div className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="max-w-7xl mx-auto px-6 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-8">
         <ServicesSidebar
           services={servicesData}
           active={activeService}

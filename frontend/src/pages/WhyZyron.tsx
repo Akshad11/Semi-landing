@@ -8,6 +8,15 @@ import {
   ChevronDown,
 } from "lucide-react";
 import Navbar from "../components/Navbar";
+import { AnimatePresence } from "framer-motion";
+import {
+  Cpu,
+  Layers,
+  GitBranch,
+  Users,
+  GraduationCap,
+} from "lucide-react";
+import { Link } from "react-router-dom";
 
 /* ---------- Data ---------- */
 
@@ -86,6 +95,240 @@ const WhyHeader: React.FC = () => (
       </p>
     </div>
   </div>
+);
+
+/* ---------- Types ---------- */
+
+interface WhyService {
+  id: string;
+  title: string;
+  icon: any;
+  description: string;
+  features: string[];
+  benefits: string[];
+}
+
+/* ---------- Data ---------- */
+
+const whyServicesData: WhyService[] = [
+  {
+    id: "design",
+    title: "Design Services",
+    icon: Cpu,
+    description:
+      "Comprehensive ASIC and SoC design services covering architecture, RTL development, and integration for high-performance silicon.",
+    features: [
+      "SoC & IP Architecture",
+      "RTL Coding (Verilog/SystemVerilog)",
+      "Low Power Design",
+      "IP Integration",
+    ],
+    benefits: [
+      "Optimized for PPA targets",
+      "Faster development cycles",
+      "Scalable architectures",
+      "First-pass success",
+    ],
+  },
+  {
+    id: "verification",
+    title: "Verification Services",
+    icon: CheckCircle,
+    description:
+      "Robust functional verification ensuring design correctness using industry-proven methodologies.",
+    features: [
+      "UVM Testbenches",
+      "Functional Coverage",
+      "Regression Automation",
+      "Formal Verification",
+    ],
+    benefits: [
+      "Reduced silicon re-spins",
+      "High coverage closure",
+      "Improved product reliability",
+      "Early bug detection",
+    ],
+  },
+  {
+    id: "fpga",
+    title: "FPGA / Emulation Services",
+    icon: Layers,
+    description:
+      "High-speed prototyping and emulation to validate complex SoCs before tapeout.",
+    features: [
+      "FPGA Prototyping",
+      "Emulation Platforms",
+      "Hardware/Software Co-debug",
+      "Early Software Bring-up",
+    ],
+    benefits: [
+      "Faster validation cycles",
+      "Reduced project risks",
+      "Early system visibility",
+      "Accelerated time-to-market",
+    ],
+  },
+  {
+    id: "backend",
+    title: "Backend Services",
+    icon: GitBranch,
+    description:
+      "Physical implementation services transforming RTL into manufacturable layouts meeting aggressive PPA goals.",
+    features: [
+      "Floorplanning & PnR",
+      "Clock Tree Synthesis",
+      "Static Timing Analysis",
+      "DRC/LVS Closure",
+    ],
+    benefits: [
+      "Optimized power & performance",
+      "Foundry-ready GDSII",
+      "Improved yield",
+      "Advanced node expertise",
+    ],
+  },
+  {
+    id: "staff",
+    title: "Staff Augmentation",
+    icon: Users,
+    description:
+      "Highly skilled engineers to seamlessly extend your in-house teams and accelerate project execution.",
+    features: [
+      "Onsite / Offshore Models",
+      "Domain Experts",
+      "Flexible Engagement",
+      "Quick Ramp-up",
+    ],
+    benefits: [
+      "Reduced hiring overhead",
+      "Immediate productivity",
+      "Cost-effective scaling",
+      "Access to niche skills",
+    ],
+  },
+  {
+    id: "training",
+    title: "Training Services",
+    icon: GraduationCap,
+    description:
+      "Industry-focused training programs to upskill teams on advanced VLSI design and verification technologies.",
+    features: [
+      "RTL & Verification Training",
+      "UVM Methodologies",
+      "Physical Design Basics",
+      "Hands-on Labs",
+    ],
+    benefits: [
+      "Improved team productivity",
+      "Latest industry practices",
+      "Customized programs",
+      "Practical exposure",
+    ],
+  },
+];
+
+/* ---------- Sidebar ---------- */
+
+const WhyServicesSidebar: React.FC<{
+  services: WhyService[];
+  active: WhyService;
+  onSelect: (s: WhyService) => void;
+}> = ({ services, active, onSelect }) => (
+  <div className="lg:col-span-4 space-y-4">
+    {services.map((service) => {
+      const Icon = service.icon;
+      const isActive = active.id === service.id;
+
+      return (
+        <button
+          key={service.id}
+          onClick={() => onSelect(service)}
+          className={`w-full text-left p-5 rounded-xl border transition-all duration-300 flex items-center gap-4 group
+          ${isActive
+              ? "bg-blue-50 border-blue-500 shadow-md"
+              : "bg-white border-gray-200 hover:border-blue-400 hover:bg-blue-50/50"
+            }`}
+        >
+          <div
+            className={`p-3 rounded-lg transition
+            ${isActive
+                ? "bg-blue-600 text-white"
+                : "bg-gray-100 text-gray-600 group-hover:text-blue-600"
+              }`}
+          >
+            <Icon size={22} />
+          </div>
+          <h3
+            className={`font-semibold transition ${isActive ? "text-blue-600" : "text-gray-800"
+              }`}
+          >
+            {service.title}
+          </h3>
+        </button>
+      );
+    })}
+  </div>
+);
+
+/* ---------- Content ---------- */
+
+const WhyServiceContent: React.FC<{ service: WhyService }> = ({ service }) => (
+  <AnimatePresence mode="wait">
+    <motion.div
+      key={service.id}
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.3 }}
+      className="bg-white border border-gray-200 rounded-2xl p-8 md:p-12 shadow-lg h-full"
+    >
+      <h2 className="text-3xl font-bold mb-4 text-gray-900">
+        {service.title}
+      </h2>
+      <p className="text-gray-600 mb-10 leading-relaxed">
+        {service.description}
+      </p>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+          <h3 className="text-blue-600 font-bold mb-6 uppercase tracking-wider text-sm">
+            Key Features
+          </h3>
+          <ul className="space-y-4">
+            {service.features.map((feature, i) => (
+              <li key={i} className="flex items-center gap-3 text-gray-700">
+                <div className="w-2 h-2 bg-blue-600 rounded-full" />
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-blue-600 font-bold mb-6 uppercase tracking-wider text-sm">
+            Benefits
+          </h3>
+          <ul className="space-y-4">
+            {service.benefits.map((b, i) => (
+              <li key={i} className="flex items-center gap-3 text-gray-700">
+                <div className="w-2 h-2 bg-blue-600 rounded-full" />
+                {b}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="mt-12 pt-8 border-t flex justify-end">
+        <Link
+          to="/contact"
+          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"
+        >
+          Talk to Us
+        </Link>
+      </div>
+    </motion.div>
+  </AnimatePresence>
 );
 
 /* ---------- Reason Card ---------- */
@@ -170,6 +413,7 @@ const WhyCTA: React.FC = () => (
 /* ---------- Main Page ---------- */
 
 const WhyZyron: React.FC = () => {
+  const [active, setActive] = useState(whyServicesData[0]);
   return (
     <>
       <div className="min-h-screen w-full flex  overflow-hidden">
@@ -184,14 +428,25 @@ const WhyZyron: React.FC = () => {
       <div className=" bg-gray-50">
 
         {/* Reasons */}
-        <section className="py-24 max-w-7xl mx-auto px-6">
+        {/* <section className="py-24 max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {reasons.map((item, idx) => (
               <ReasonCard key={idx} {...item} index={idx} />
             ))}
           </div>
+        </section> */}
+        <section className="py-24 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <WhyServicesSidebar
+              services={whyServicesData}
+              active={active}
+              onSelect={setActive}
+            />
+            <div className="lg:col-span-8">
+              <WhyServiceContent service={active} />
+            </div>
+          </div>
         </section>
-
         {/* Features */}
         <section className="py-12 max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
