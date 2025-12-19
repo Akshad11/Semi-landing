@@ -17,9 +17,71 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import ServicesExactUI from "../components/ServicesExactUI";
 
 /* ---------- Data ---------- */
+interface FeatureItem {
+  id: string;
+  title: string;
+  content: string[];
+}
 
+const features1: FeatureItem[] = [
+  {
+    id: "strategy",
+    title: "Strategy and Planning",
+    content: [
+      "We define a clear roadmap for every project by aligning technical goals with business objectives.",
+      "Our structured planning helps identify risks early and optimize resource utilization.",
+      "This ensures predictable delivery timelines and successful execution from concept to completion.",
+    ],
+  },
+  {
+    id: "reliability",
+    title: "Reliability",
+    content: [
+      "Reliability is embedded in every phase of our engineering process.",
+      "Through rigorous verification and validation, we ensure consistent and dependable results.",
+      "Our focus on quality minimizes failures and builds long-term trust with customers.",
+    ],
+  },
+  {
+    id: "understanding",
+    title: "In-depth Understanding",
+    content: [
+      "Our team brings deep domain knowledge in semiconductor design and system architecture.",
+      "We carefully analyze requirements to understand customer challenges and constraints.",
+      "This enables us to deliver tailored solutions that meet both technical and business needs.",
+    ],
+  },
+  {
+    id: "reusability",
+    title: "Reusability",
+    content: [
+      "We develop reusable IPs, frameworks, and verification components to accelerate development.",
+      "Reusability reduces overall cost and shortens design cycles across projects.",
+      "This approach ensures faster time-to-market and consistent quality in every engagement.",
+    ],
+  },
+  {
+    id: "scalability",
+    title: "Scalability",
+    content: [
+      "Our solutions are designed to scale from small prototypes to complex SoC platforms.",
+      "We build modular architectures that grow with evolving product requirements.",
+      "This ensures long-term flexibility and supports future technology advancements.",
+    ],
+  },
+  {
+    id: "tracking",
+    title: "Tracking",
+    content: [
+      "We continuously track project milestones, deliverables, and risks throughout execution.",
+      "Regular status updates and reviews ensure complete transparency with stakeholders.",
+      "This disciplined tracking keeps projects on schedule and aligned with expectations.",
+    ],
+  },
+];
 const reasons = [
   {
     icon: Clock,
@@ -437,18 +499,21 @@ const WhyZyron: React.FC = () => {
         </section> */}
         <section className="py-24 bg-gray-50">
           <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <WhyServicesSidebar
+            {/* <WhyServicesSidebar
               services={whyServicesData}
               active={active}
               onSelect={setActive}
             />
             <div className="lg:col-span-8">
               <WhyServiceContent service={active} />
-            </div>
+            </div> */}
+
           </div>
+          <ServicesExactUI features1={features1} />
+
         </section>
         {/* Features */}
-        <section className="py-12 max-w-6xl mx-auto px-6">
+        {/* <section className="py-12 max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               What Makes Us Different
@@ -463,9 +528,9 @@ const WhyZyron: React.FC = () => {
               <FeatureCard key={idx} {...f} index={idx} />
             ))}
           </div>
-        </section>
+        </section> */}
 
-        <WhyCTA />
+        {/* <WhyCTA /> */}
       </div>
     </>
   );

@@ -179,7 +179,7 @@ const About: React.FC = () => {
       <AboutCompanySection
         description="Zyron Semiconductors is an ASIC IP and Design services company founded by a group of committed and experienced semiconductor industry professionals with a goal to provide end-to-end design and engineering services. We are driven to use the power of our global network to connect businesses with the right people, and people with the right businesses without bias. It is a leading service provider in VLSI by exceeding expectations on delivery, meeting stringent schedules, demonstrating integrity and intelligence in all our engagements. We offer a spectrum of design and verification services, which includes defining specification, logic partitioning, micro-architecture, RTL coding, synthesis, developing custom and standard VIPs and verification environment development using latest methodologies (UVM/OVM)."
       />
-      <MissionSection />
+      {/* <MissionSection /> */}
       {/* <TimelineSection /> */}
       <CtaBanner />
     </div>

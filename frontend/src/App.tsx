@@ -8,6 +8,7 @@ import About from './pages/About';
 import Services from './pages/Services';
 import WhyZyron from './pages/WhyZyron';
 import Contact from './pages/Contact';
+import Careers from './pages/Careers';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -19,7 +20,7 @@ const AnimatedRoutes = () => {
         <Route path="/about" element={<About />} />
         <Route path="/services/*" element={<Services />} />
         <Route path="/why-zyron" element={<WhyZyron />} />
-        {/* <Route path="/careers" element={<Careers />} /> */}
+        <Route path="/careers" element={<Careers />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </AnimatePresence>

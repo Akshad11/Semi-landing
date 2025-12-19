@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Cpu, FileCode, GitBranch, Terminal } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import ServicesExactUI from "../components/ServicesExactUI";
 
 /* ---------- Types ---------- */
 
@@ -14,7 +15,70 @@ interface ServiceDetail {
   features: string[];
   capabilities: string[];
 }
+interface ServiceItem {
+  id: string;
+  title: string;
+  content: string[];
+}
 
+const services: ServiceItem[] = [
+  {
+    id: "design",
+    title: "Design Services",
+    content: [
+      "Our design services provide end-to-end ASIC and SoC solutions, from specification to RTL implementation.",
+      "We ensure optimized architectures using proven methodologies and deep domain expertise.",
+      "Our focus is on delivering high performance, low power, and area-efficient designs.",
+    ],
+  },
+  {
+    id: "verification",
+    title: "Verification Services",
+    content: [
+      "We offer comprehensive functional verification services using industry-standard UVM methodologies.",
+      "Our verification process ensures maximum coverage and early bug detection.",
+      "This helps minimize costly silicon re-spins and accelerates time-to-market.",
+    ],
+  },
+  {
+    id: "fpga",
+    title: "FPGA/Emulation Services",
+    content: [
+      "FPGA services delivered by Reclk semiconductors are comprehensive and backed by several exceptional features:",
+      "We roll out products after thorough testing, based on comprehensive design plans and sound knowledge of semiconductor engineering.",
+      "Our distinguished process helps us make the most reliable and high-quality products.",
+      "We make the product available to you in a very short time-to-market, even in spite of tight testing schedules.",
+      "Reclk semiconductors ensures that the entire process including prototyping, platform selection and adaptation stages are executed by high caliber specialists in the field.",
+    ],
+  },
+  {
+    id: "backend",
+    title: "Backend service",
+    content: [
+      "Our backend services cover physical implementation from RTL to GDSII.",
+      "We focus on timing closure, power optimization, and DRC/LVS clean layouts.",
+      "Expertise across advanced technology nodes ensures manufacturable designs.",
+    ],
+  },
+  {
+    id: "staff",
+    title: "Staff augmentation",
+    content: [
+      "We provide highly skilled engineers to extend your in-house teams.",
+      "Our flexible engagement model helps you scale resources quickly.",
+      "Engineers integrate seamlessly into your workflows and processes.",
+    ],
+  },
+  {
+    id: "training",
+    title: "Training services",
+    content: [
+      "Our training programs help engineers upskill in VLSI design and verification.",
+      "Courses include RTL, UVM, physical design, and hands-on labs.",
+      "Customized programs tailored to industry and academic needs.",
+    ],
+  },
+];
 /* ---------- Data ---------- */
 
 const servicesData: ServiceDetail[] = [
@@ -236,7 +300,7 @@ const ServiceContent: React.FC<{ service: ServiceDetail }> = ({ service }) => (
 /* ---------- Main Page ---------- */
 
 const Services: React.FC = () => {
-  const [activeService, setActiveService] = useState(servicesData[0]);
+  // const [activeService, setActiveService] = useState(servicesData[0]);
 
   return (<>
     <div className="min-h-screen w-full flex  overflow-hidden">
@@ -248,9 +312,10 @@ const Services: React.FC = () => {
       </div>
     </div>
     <div className=" bg-white">
+      <ServicesExactUI features1={services} />
 
-      <div className="max-w-7xl mx-auto px-6 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <ServicesSidebar
+      {/* <div className="max-w-7xl mx-auto px-6 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-8"> */}
+      {/* <ServicesSidebar
           services={servicesData}
           active={activeService}
           onSelect={setActiveService}
@@ -258,8 +323,8 @@ const Services: React.FC = () => {
 
         <div className="lg:col-span-8">
           <ServiceContent service={activeService} />
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
     </div></>
   );
 };

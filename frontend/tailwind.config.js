@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         zyron: {
-          cyan: "#00f0ff",
+          cyan: "#2563EB",
           blue: "#2d5af8",
           violet: "#7d12ff",
           dark: "#050505",
