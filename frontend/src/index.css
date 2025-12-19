@@ -3,10 +3,12 @@
 @tailwind utilities;
 
 body {
-    background-color: #050505;
+    background-color: white;
     color: #e5e5e5;
     overflow-x: hidden;
+    @apply font-sans;
 }
+
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
@@ -24,4 +26,36 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #00f0ff;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slideUp {
+    animation: slideUp 0.8s ease-out both;
+}
+
+@keyframes featureFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-featureFade {
+    animation: featureFade 0.7s ease-out forwards;
 }

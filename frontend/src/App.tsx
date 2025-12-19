@@ -29,9 +29,8 @@ const AnimatedRoutes = () => {
 const App: React.FC = () => {
   return (
     <HashRouter>
-      <div className="flex flex-col min-h-screen bg-zyron-dark text-white font-sans selection:bg-zyron-cyan selection:text-black">
-        <Navbar />
-        <main className="flex-grow pt-20">
+      <div className="flex flex-col min-h-screen text-white font-sans selection:bg-zyron-cyan selection:text-black">
+        <main className="flex-grow">
           <AnimatedRoutes />
         </main>
         <Footer />

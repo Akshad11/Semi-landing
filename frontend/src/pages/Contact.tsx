@@ -1,6 +1,52 @@
 import React, { useState } from "react";
-import Section from "../components/ui/Section";
+import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
+import Navbar from "../components/Navbar";
+
+/* ---------- Header ---------- */
+
+const ContactHeader: React.FC = () => (
+  <div className="relative h-[50vh] w-full flex items-center justify-center text-center overflow-hidden">
+    <img
+      src="https://images.unsplash.com/photo-1523966211575-eb4a01e7dd51?q=80&w=1920&auto=format&fit=crop"
+      alt="Contact background"
+      className="absolute inset-0 w-full h-full object-cover"
+    />
+    <div className="absolute inset-0 bg-black/60" />
+    <div className="relative z-10 px-6">
+      <motion.h1
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-4xl md:text-6xl font-bold mb-4 text-white"
+      >
+        Let’s <span className="text-blue-400">Talk</span>
+      </motion.h1>
+      <p className="text-lg text-gray-200 max-w-2xl mx-auto">
+        Have a project in mind? Our team is ready to help you bring it to life.
+      </p>
+    </div>
+  </div>
+);
+
+/* ---------- Info Card ---------- */
+
+const InfoItem: React.FC<{
+  icon: any;
+  title: string;
+  children: React.ReactNode;
+}> = ({ icon: Icon, title, children }) => (
+  <div className="flex items-start gap-4">
+    <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center shrink-0">
+      <Icon />
+    </div>
+    <div>
+      <h3 className="font-semibold text-gray-900 mb-1">{title}</h3>
+      <div className="text-gray-600 text-sm leading-relaxed">{children}</div>
+    </div>
+  </div>
+);
+
+/* ---------- Main Page ---------- */
 
 const Contact: React.FC = () => {
   const [form, setForm] = useState({
@@ -9,16 +55,13 @@ const Contact: React.FC = () => {
     email: "",
     message: "",
   });
-
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  ) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -28,9 +71,7 @@ const Contact: React.FC = () => {
     try {
       const res = await fetch("http://localhost:5000/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: `${form.firstName} ${form.lastName}`,
           email: form.email,
@@ -39,19 +80,11 @@ const Contact: React.FC = () => {
       });
 
       const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Something went wrong");
-      }
+      if (!res.ok) throw new Error(data.message);
 
       setSuccess("Message sent successfully! We'll get back to you soon.");
-      setForm({
-        firstName: "",
-        lastName: "",
-        email: "",
-        message: "",
-      });
-    } catch (err: any) {
+      setForm({ firstName: "", lastName: "", email: "", message: "" });
+    } catch {
       setError("Failed to send message. Please try again later.");
     } finally {
       setLoading(false);
@@ -59,140 +92,111 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen py-24">
-      <Section>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-          {/* Info */}
-          <div>
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-8">
-              Let's <span className="text-zyron-cyan">Talk</span>
-            </h1>
-            <p className="text-gray-400 text-lg mb-12">
-              Have a complex design challenge? Need a partner for your next
-              tapeout? Reach out to our engineering team.
-            </p>
+    <>
+      <div className="min-h-screen w-full flex  overflow-hidden">
+        <Navbar />
 
-            <div className="space-y-8">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-zyron-panel border border-zyron-border rounded-lg flex items-center justify-center shrink-0">
-                  <Mail className="text-zyron-cyan" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg">Email Us</h3>
-                  <p className="text-gray-400">contact@zyronsemi.com</p>
-                  <p className="text-gray-400">sales@zyronsemi.com</p>
-                </div>
-              </div>
+        <div className="flex-1 min-h-0 justify-center flex items-center">
+          <ContactHeader />
 
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-zyron-panel border border-zyron-border rounded-lg flex items-center justify-center shrink-0">
-                  <Phone className="text-zyron-blue" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg">Call Us</h3>
-                  <p className="text-gray-400">+91 80 1234 5678</p>
-                  <p className="text-gray-400">Mon-Fri, 9am - 6pm IST</p>
-                </div>
-              </div>
+        </div>
+      </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-zyron-panel border border-zyron-border rounded-lg flex items-center justify-center shrink-0">
-                  <MapPin className="text-zyron-violet" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg">Visit Us</h3>
-                  <p className="text-gray-400">
+      <div className="min-h-screen bg-gray-50">
+
+        <section className="py-24 max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+            {/* Info */}
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                Get in Touch
+              </h2>
+              <p className="text-gray-600 mb-10 text-lg">
+                Reach out to discuss your semiconductor design challenges or to
+                learn more about our services.
+              </p>
+
+              <div className="space-y-8">
+                <InfoItem icon={Mail} title="Email Us">
+                  <p>contact@zyronsemi.com</p>
+                  <p>sales@zyronsemi.com</p>
+                </InfoItem>
+
+                <InfoItem icon={Phone} title="Call Us">
+                  <p>+91 80 1234 5678</p>
+                  <p>Mon–Fri, 9am – 6pm IST</p>
+                </InfoItem>
+
+                <InfoItem icon={MapPin} title="Visit Us">
+                  <p>
                     Zyron Semiconductors Pvt. Ltd.
                     <br />
-                    Tech Park, Electronic City,
+                    Electronic City, Bangalore
                     <br />
-                    Bangalore, Karnataka - 560100
+                    Karnataka – 560100
                   </p>
-                </div>
+                </InfoItem>
               </div>
             </div>
-          </div>
 
-          {/* Form */}
-          <div className="bg-zyron-panel border border-zyron-border p-8 rounded-2xl">
-            <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
+            {/* Form */}
+            <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                Send us a message
+              </h3>
 
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-400">
-                    First Name
-                  </label>
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <input
                     name="firstName"
                     value={form.firstName}
                     onChange={handleChange}
-                    type="text"
-                    className="w-full bg-black/50 border border-zyron-border rounded-lg p-3 focus:border-zyron-cyan focus:outline-none transition-colors"
-                    placeholder="John"
+                    placeholder="First Name"
+                    className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-600"
                   />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-400">
-                    Last Name
-                  </label>
                   <input
                     name="lastName"
                     value={form.lastName}
                     onChange={handleChange}
-                    type="text"
-                    className="w-full bg-black/50 border border-zyron-border rounded-lg p-3 focus:border-zyron-cyan focus:outline-none transition-colors"
-                    placeholder="Doe"
+                    placeholder="Last Name"
+                    className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-600"
                   />
                 </div>
-              </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-400">
-                  Email Address
-                </label>
                 <input
                   name="email"
                   value={form.email}
                   onChange={handleChange}
+                  placeholder="Email Address"
                   type="email"
-                  className="w-full bg-black/50 border border-zyron-border rounded-lg p-3 focus:border-zyron-cyan focus:outline-none transition-colors"
-                  placeholder="john@company.com"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-600"
                 />
-              </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-400">
-                  Message
-                </label>
                 <textarea
                   name="message"
                   value={form.message}
                   onChange={handleChange}
                   rows={4}
-                  className="w-full bg-black/50 border border-zyron-border rounded-lg p-3 focus:border-zyron-cyan focus:outline-none transition-colors"
                   placeholder="Tell us about your project..."
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-600 resize-none"
                 />
+
+                {success && <p className="text-green-600 text-sm">{success}</p>}
+                {error && <p className="text-red-600 text-sm">{error}</p>}
+
+                <button
+                  onClick={handleSubmit}
+                  disabled={loading}
+                  className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition flex items-center justify-center gap-2 disabled:opacity-50"
+                >
+                  {loading ? "Sending..." : "Send Message"} <Send size={18} />
+                </button>
               </div>
-
-              {success && (
-                <p className="text-green-500 text-sm">{success}</p>
-              )}
-              {error && <p className="text-red-500 text-sm">{error}</p>}
-
-              <button
-                onClick={handleSubmit}
-                disabled={loading}
-                className="w-full py-4 bg-gradient-to-r from-zyron-blue to-zyron-cyan text-black font-bold rounded-lg hover:shadow-[0_0_20px_rgba(0,240,255,0.3)] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
-              >
-                {loading ? "Sending..." : "Send Message"} <Send size={18} />
-              </button>
             </div>
           </div>
-        </div>
-      </Section>
-    </div>
+        </section>
+      </div>
+    </>
   );
 };
 

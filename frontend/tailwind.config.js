@@ -11,6 +11,8 @@ export default {
           dark: "#050505",
           panel: "rgba(255, 255, 255, 0.03)",
           border: "rgba(255, 255, 255, 0.1)",
+          brandblue: '#1e40af',
+          brandaccent: '#f59e0b',
         },
       },
       fontFamily: {
