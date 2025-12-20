@@ -12,29 +12,34 @@ interface NavDropdownProps {
     title: string;
     items: DropdownItem[];
     isOpen: boolean;
-    onToggle: () => void;
+    onOpen: () => void;
+    onClose: () => void;
 }
 
 const NavDropdown: React.FC<NavDropdownProps> = ({
     title,
     items,
     isOpen,
-    onToggle,
+    onOpen,
+    onClose,
 }) => {
     return (
-        <div className="relative">
-            <button
-                onClick={onToggle}
-                className="flex items-center gap-1 text-xl font-medium text-gray-700 hover:text-zyron-cyan transition"
-            >
+        <div
+            className="relative"
+            onMouseEnter={onOpen}
+            onMouseLeave={onClose}
+        >
+            {/* Trigger */}
+            <div className="flex items-center gap-1 text-lg font-medium text-gray-700 hover:text-zyron-cyan transition cursor-pointer">
                 {title}
                 <ChevronDown
                     size={18}
                     className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""
                         }`}
                 />
-            </button>
+            </div>
 
+            {/* Dropdown */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -49,8 +54,8 @@ const NavDropdown: React.FC<NavDropdownProps> = ({
                                 <Link
                                     key={item.to}
                                     to={item.to}
-                                    className="block px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-zyron-cyan transition"
-                                    onClick={onToggle}
+                                    className="block px-5 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-zyron-cyan transition"
+                                    onClick={onClose}
                                 >
                                     {item.label}
                                 </Link>

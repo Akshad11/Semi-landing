@@ -3,41 +3,12 @@ import { motion } from "framer-motion";
 import { Flag, Target, Users } from "lucide-react";
 import Navbar from "../components/Navbar";
 import CtaBanner from "../components/CtaBanner";
+import PageHeader from "../components/PageHeader";
+import Eng from "../content/Eng";
 interface AboutCompanySectionProps {
   title?: string;
   description: string;
 }
-/* ---------------- Header ---------------- */
-
-const AboutHeader: React.FC = () => (
-  <div className="relative h-[70vh] w-full flex items-center justify-center text-center overflow-hidden">
-    {/* Background Image */}
-    <img
-      src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      alt="About background"
-      className="absolute inset-0 w-full h-full object-cover"
-    />
-
-    {/* Dark Overlay */}
-    <div className="absolute inset-0 bg-black/60" />
-
-    {/* Content */}
-    <div className="relative z-10 px-6">
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-4xl md:text-6xl font-bold mb-6 text-white"
-      >
-        About <span className="text-blue-400">ZYRON</span>
-      </motion.h1>
-      <p className="text-lg text-gray-200 max-w-3xl mx-auto">
-        We are a team of passionate engineers dedicated to pushing the boundaries
-        of semiconductor innovation and delivering excellence worldwide.
-      </p>
-    </div>
-  </div>
-);
-
 
 /* ---------------- Mission ---------------- */
 
@@ -69,8 +40,6 @@ const MissionSection: React.FC = () => (
     </div>
   </section>
 );
-
-
 
 const AboutCompanySection: React.FC<AboutCompanySectionProps> = ({
   title = "About Company",
@@ -171,7 +140,13 @@ const About: React.FC = () => {
       <Navbar />
 
       <div className="flex-1 min-h-0 justify-center flex items-center">
-        <AboutHeader />
+        <PageHeader
+          title={Eng.headers.about.title}
+          highlight={Eng.headers.about.highlight}
+          subtitle={Eng.headers.about.subtitle}
+          bgImage={Eng.headers.about.bgImage}
+        />
+
       </div>
     </div>
 

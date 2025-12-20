@@ -9,6 +9,9 @@ import Services from './pages/Services';
 import WhyZyron from './pages/WhyZyron';
 import Contact from './pages/Contact';
 import Careers from './pages/Careers';
+import Eng from './content/Eng';
+import Community from './pages/Community';
+import Resources from './pages/Resources';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -22,6 +25,8 @@ const AnimatedRoutes = () => {
         <Route path="/why-zyron" element={<WhyZyron />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/community" element={<Community />} />
+        <Route path="/resources" element={<Resources />} />
       </Routes>
     </AnimatePresence>
   );
@@ -34,7 +39,7 @@ const App: React.FC = () => {
         <main className="flex-grow">
           <AnimatedRoutes />
         </main>
-        <Footer />
+        <Footer data={Eng.Common.footer} />
       </div>
     </HashRouter>
   );

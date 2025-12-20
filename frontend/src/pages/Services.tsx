@@ -4,6 +4,8 @@ import { Cpu, FileCode, GitBranch, Terminal } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import ServicesExactUI from "../components/ServicesExactUI";
+import PageHeader from "../components/PageHeader";
+import Eng from "../content/Eng";
 
 /* ---------- Types ---------- */
 
@@ -21,6 +23,8 @@ interface ServiceItem {
   content: string[];
 }
 
+
+/* ---------- Data ---------- */
 const services: ServiceItem[] = [
   {
     id: "design",
@@ -79,7 +83,6 @@ const services: ServiceItem[] = [
     ],
   },
 ];
-/* ---------- Data ---------- */
 
 const servicesData: ServiceDetail[] = [
   {
@@ -159,33 +162,6 @@ const servicesData: ServiceDetail[] = [
     ],
   },
 ];
-
-/* ---------- Header ---------- */
-
-const ServicesHeader: React.FC = () => (
-  <div className="relative h-[70vh] w-full flex items-center justify-center text-center overflow-hidden">
-    <img
-      src="https://images.unsplash.com/photo-1717386255773-1e3037c81788?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      alt="Services background"
-      className="absolute inset-0 w-full h-full object-cover"
-    />
-    <div className="absolute inset-0 bg-black/60" />
-
-    <div className="relative z-10 px-6">
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-4xl md:text-6xl font-bold mb-6 text-white"
-      >
-        Our <span className="text-blue-400">Services</span>
-      </motion.h1>
-      <p className="text-gray-200 max-w-2xl mx-auto text-lg">
-        We offer a full spectrum of semiconductor engineering services, from
-        concept to silicon.
-      </p>
-    </div>
-  </div>
-);
 
 /* ---------- Sidebar ---------- */
 
@@ -307,12 +283,17 @@ const Services: React.FC = () => {
       <Navbar />
 
       <div className="flex-1 min-h-0 justify-center flex items-center">
-        <ServicesHeader />
+        <PageHeader
+          title={Eng.headers.services.title}
+          highlight={Eng.headers.services.highlight}
+          subtitle={Eng.headers.services.subtitle}
+          bgImage={Eng.headers.services.bgImage}
+        />
 
       </div>
     </div>
     <div className=" bg-white">
-      <ServicesExactUI features1={services} />
+      <ServicesExactUI features1={Eng.services} />
 
       {/* <div className="max-w-7xl mx-auto px-6 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-8"> */}
       {/* <ServicesSidebar

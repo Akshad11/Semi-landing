@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import ServicesExactUI from "../components/ServicesExactUI";
+import PageHeader from "../components/PageHeader";
+import Section from "../components/ui/Section";
 
 /* ---------- Data ---------- */
 interface FeatureItem {
@@ -131,33 +133,6 @@ const features = [
       "We offer flexible engagement models including turnkey projects, staff augmentation, and long-term partnerships.",
   },
 ];
-
-/* ---------- Header ---------- */
-
-const WhyHeader: React.FC = () => (
-  <div className="relative h-[70vh] w-full flex items-center justify-center text-center overflow-hidden">
-    <img
-      src="https://plus.unsplash.com/premium_photo-1682144748274-add3d8ed04ea?q=80&w=2034&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      alt="Why Zyron"
-      className="absolute inset-0 w-full h-full object-cover"
-    />
-    <div className="absolute inset-0 bg-black/60" />
-
-    <div className="relative z-10 px-6">
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-4xl md:text-6xl font-bold mb-6 text-white"
-      >
-        Why Partner with <span className="text-blue-400">Zyron</span>?
-      </motion.h1>
-      <p className="text-lg text-gray-200 max-w-3xl mx-auto">
-        We combine deep domain expertise with cutting-edge tools to deliver
-        exceptional semiconductor solutions.
-      </p>
-    </div>
-  </div>
-);
 
 /* ---------- Types ---------- */
 
@@ -475,15 +450,19 @@ const WhyCTA: React.FC = () => (
 /* ---------- Main Page ---------- */
 
 const WhyZyron: React.FC = () => {
-  const [active, setActive] = useState(whyServicesData[0]);
   return (
     <>
       <div className="min-h-screen w-full flex  overflow-hidden">
         <Navbar />
 
         <div className="flex-1 min-h-0 justify-center flex items-center">
-          <WhyHeader />
-
+          <PageHeader
+            title="Why Partner with"
+            highlight="Zyron?"
+            subtitle="We combine deep domain expertise with cutting-edge tools to deliver exceptional semiconductor solutions."
+            bgImage="https://plus.unsplash.com/premium_photo-1682144748274-add3d8ed04ea?q=80&w=2034&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            height="70vh"
+          />
         </div>
       </div>
 
@@ -497,7 +476,7 @@ const WhyZyron: React.FC = () => {
             ))}
           </div>
         </section> */}
-        <section className="py-24 bg-gray-50">
+        <Section className="py-24 bg-gray-50">
           <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* <WhyServicesSidebar
               services={whyServicesData}
@@ -511,7 +490,7 @@ const WhyZyron: React.FC = () => {
           </div>
           <ServicesExactUI features1={features1} />
 
-        </section>
+        </Section>
         {/* Features */}
         {/* <section className="py-12 max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
