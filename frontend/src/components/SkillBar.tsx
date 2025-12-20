@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 interface SkillBarProps {
     label: string;
@@ -21,11 +22,18 @@ const SkillBar: React.FC<SkillBarProps> = ({ label, value = 100 }) => {
                 {/* Background glow */}
                 <div className="absolute inset-0 bg-blue-100 rounded-full" />
 
-                {/* Filled bar */}
-                <div
+                {/* ✅ Animated filled bar with delay */}
+                <motion.div
                     className="relative h-full bg-gradient-to-r from-blue-500 to-blue-700 rounded-full
-          transition-all duration-1000 ease-out group-hover:brightness-110"
-                    style={{ width: `${value}%` }}
+                    group-hover:brightness-110"
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${value}%` }}
+                    transition={{
+                        duration: 1.3,
+                        delay: 1.5,
+                        ease: [0.16, 1, 0.3, 1],
+                    }}
+                    viewport={{ once: true }}
                 />
 
                 {/* Shine effect */}

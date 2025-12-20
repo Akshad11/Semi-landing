@@ -1,5 +1,6 @@
 import React from "react";
 import SkillBar from "./SkillBar";
+import { motion, Variants } from "framer-motion";
 
 interface Skill {
     name: string;
@@ -17,14 +18,41 @@ interface AboutSectionProps {
     data: AboutData;
 }
 
+const containerVariants: Variants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.15,
+        },
+    },
+};
+
+const fadeUp: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.7,
+            ease: [0.16, 1, 0.3, 1], // ✅ cubic-bezier instead of string
+        },
+    },
+};
+
 const AboutSection: React.FC<AboutSectionProps> = ({ data }) => {
     const { title, subtitle, paragraphs, skills } = data;
 
     return (
         <section className="py-24 bg-white" id="about">
-            <div className="max-w-7xl mx-auto px-6">
+            <motion.div
+                className="max-w-7xl mx-auto px-6"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+            >
                 {/* Header */}
-                <div className="text-center mb-16">
+                <motion.div className="text-center mb-16" variants={fadeUp}>
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                         {title}
                     </h2>
@@ -33,38 +61,43 @@ const AboutSection: React.FC<AboutSectionProps> = ({ data }) => {
                         <span className="w-4 h-1 bg-blue-300 rounded-full" />
                         <span className="w-10 h-1 bg-blue-600 rounded-full" />
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Content */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     {/* Left Text */}
-                    <div>
-                        <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+                    <motion.div variants={containerVariants}>
+                        <motion.h3
+                            className="text-2xl font-semibold text-gray-900 mb-4"
+                            variants={fadeUp}
+                        >
                             {subtitle}
-                        </h3>
+                        </motion.h3>
 
                         {paragraphs.map((para, idx) => (
-                            <p
+                            <motion.p
                                 key={idx}
                                 className="text-gray-600 leading-relaxed mb-4"
+                                variants={fadeUp}
                             >
                                 {para}
-                            </p>
+                            </motion.p>
                         ))}
-                    </div>
+                    </motion.div>
 
                     {/* Right Skills */}
-                    <div className="space-y-6">
+                    <motion.div className="space-y-6" variants={containerVariants}>
                         {skills.map((skill) => (
-                            <SkillBar
-                                key={skill.name}
-                                label={skill.name}
-                                value={skill.value}
-                            />
+                            <motion.div key={skill.name} variants={fadeUp}>
+                                <SkillBar
+                                    label={skill.name}
+                                    value={skill.value}
+                                />
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
-            </div>
+            </motion.div>
         </section>
     );
 };

@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import ServicesExactUI from "../components/ServicesExactUI";
 import PageHeader from "../components/PageHeader";
 import Section from "../components/ui/Section";
+import Eng from "../content/Eng";
 
 /* ---------- Data ---------- */
 interface FeatureItem {
@@ -488,7 +489,7 @@ const WhyZyron: React.FC = () => {
             </div> */}
 
           </div>
-          <ServicesExactUI features1={features1} />
+          <ServicesExactUI features1={Eng.whyFeatures} />
 
         </Section>
         {/* Features */}

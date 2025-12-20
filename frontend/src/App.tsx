@@ -1,7 +1,6 @@
 import React from 'react';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, BrowserRouter } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -12,6 +11,8 @@ import Careers from './pages/Careers';
 import Eng from './content/Eng';
 import Community from './pages/Community';
 import Resources from './pages/Resources';
+import ScrollToTop from './components/ScrollToTop';
+import NotFound from './pages/NotFound';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -27,6 +28,7 @@ const AnimatedRoutes = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/community" element={<Community />} />
         <Route path="/resources" element={<Resources />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
   );
@@ -34,14 +36,15 @@ const AnimatedRoutes = () => {
 
 const App: React.FC = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <div className="flex flex-col min-h-screen text-white font-sans selection:bg-zyron-cyan selection:text-black">
         <main className="flex-grow">
+          <ScrollToTop />
           <AnimatedRoutes />
         </main>
         <Footer data={Eng.Common.footer} />
       </div>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 

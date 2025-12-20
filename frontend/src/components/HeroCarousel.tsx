@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Slide } from '../types';
 
 interface HeroCarouselProps {
@@ -10,6 +11,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ slides }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navigate = useNavigate();
 
   const resetAnimating = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -35,37 +37,34 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ slides }) => {
     resetAnimating();
   };
 
-  // ✅ Stable auto-play
   useEffect(() => {
-    const interval = setInterval(() => {
-      handleNext();
-    }, 4000);
-
+    const interval = setInterval(() => handleNext(), 5000);
     return () => clearInterval(interval);
   }, [handleNext]);
 
   if (!slides.length) return null;
 
   return (
-    <div className="relative w-full h-full overflow-hidden bg-gray-900 group">
+    <div className="relative w-full h-full overflow-hidden bg-black group">
       {slides.map((slide, index) => {
         const isActive = index === currentIndex;
 
         return (
           <div
             key={slide.id}
-            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out
             ${isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
           >
             {/* Background */}
-            <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0">
               <img
                 src={slide.imageUrl}
                 alt={slide.title}
-                className={`w-full h-full object-cover transform transition-transform duration-[5000ms] ease-linear
+                className={`w-full h-full object-cover transition-transform duration-[6000ms] ease-linear
                 ${isActive ? 'scale-110' : 'scale-100'}`}
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/90 via-black/60 to-black/20" />
+              {/* 🔥 Strong black overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/20" />
             </div>
 
             {/* Content */}
@@ -73,44 +72,54 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ slides }) => {
               <div className="container mx-auto px-6 md:px-12 lg:px-20">
                 <div className="max-w-2xl text-white">
 
-                  {/* Subtitle – slide up */}
+                  {/* Subtitle */}
                   <div
-                    className={`mb-4 inline-block bg-brand-accent/90 text-white text-xs font-bold px-3 py-1 uppercase tracking-widest rounded-sm backdrop-blur-sm
-                    transform transition-all duration-700 delay-200
+                    className={`mb-4 inline-block bg-brand-accent/90 text-white text-xs font-bold px-3 py-1 uppercase tracking-widest rounded-sm
+                    transition-all duration-700 delay-200
                     ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
                   >
                     {slide.subtitle}
                   </div>
 
-                  {/* ✅ Title – different animation (zoom + fade) */}
+                  {/* Title */}
                   <h1
-                    className={`text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 tracking-tight drop-shadow-md
-                    transform transition-all duration-700 delay-300
+                    className={`text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6
+                    transition-all duration-700 delay-300
                     ${isActive ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
                   >
                     {slide.title}
                   </h1>
 
-                  {/* Description – slide up */}
+                  {/* Description */}
                   <p
-                    className={`text-lg md:text-xl text-gray-200 mb-8 font-light leading-relaxed max-w-xl drop-shadow-sm
-                    transform transition-all duration-700 delay-500
+                    className={`text-lg md:text-xl text-gray-200 mb-10 leading-relaxed max-w-xl
+                    transition-all duration-700 delay-500
                     ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
                   >
                     {slide.description}
                   </p>
 
-                  {/* Buttons – slide up */}
+                  {/* Buttons */}
                   <div
                     className={`flex flex-col sm:flex-row gap-4
-                    transform transition-all duration-700 delay-700
+                    transition-all duration-700 delay-700
                     ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
                   >
-                    <button className="bg-brand-accent hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded transition-all duration-300 transform hover:scale-105 shadow-lg">
-                      {slide.ctaText}
+                    {/* 🔶 Primary button */}
+                    <button
+                      onClick={() => navigate('/services')}
+                      className="bg-brand-accent hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                    >
+                      Our Services
                     </button>
-                    <button className="bg-transparent hover:bg-white/10 text-white font-semibold py-3 px-8 rounded transition-all duration-300 border-2 border-white/30 hover:border-white backdrop-blur-sm">
-                      View Solutions
+
+                    {/* 🪟 Glass button */}
+                    <button
+                      onClick={() => navigate('/contact')}
+                      className="bg-white/10 backdrop-blur-sm border border-white/30 text-white font-semibold py-3 px-8 rounded-lg
+                      hover:bg-white/20 transition-all duration-300 shadow-lg"
+                    >
+                      Contact Us
                     </button>
                   </div>
 
@@ -140,13 +149,13 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ slides }) => {
           <div className="hidden md:flex space-x-2">
             <button
               onClick={handlePrev}
-              className="p-3 rounded-full border border-white/20 text-white hover:bg-brand-accent bg-black/20 backdrop-blur-sm transition"
+              className="p-3 rounded-full border border-white/30 text-white hover:bg-white/10 backdrop-blur-md transition"
             >
               <ChevronLeft size={24} />
             </button>
             <button
               onClick={handleNext}
-              className="p-3 rounded-full border border-white/20 text-white hover:bg-brand-accent bg-black/20 backdrop-blur-sm transition"
+              className="p-3 rounded-full border border-white/30 text-white hover:bg-white/10 backdrop-blur-md transition"
             >
               <ChevronRight size={24} />
             </button>
