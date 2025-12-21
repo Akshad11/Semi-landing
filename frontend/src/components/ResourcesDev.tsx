@@ -1,3 +1,6 @@
+import { useState } from "react";
+import ResourcesModal from "./ResourcesModal";
+
 interface Props {
     title: string;
     description: string;
@@ -70,24 +73,36 @@ export const ResourcesList: React.FC<{ items: ResourceItem[] }> = ({
     </section>
 );
 
-
-interface CTAData {
+export interface ResourcesCTAData {
     title: string;
     subtitle: string;
     button: string;
 }
 
-export const ResourcesCTA: React.FC<{ data: CTAData }> = ({ data }) => (
-    <section className="py-20 bg-blue-600 text-white text-center">
-        <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">{data.title}</h2>
-            <p className="text-blue-100 mb-8">{data.subtitle}</p>
-            <a
-                href="/contact"
-                className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition"
-            >
-                {data.button}
-            </a>
-        </div>
-    </section>
-);
+export const ResourcesCTA: React.FC<{ data: ResourcesCTAData }> = ({ data }) => {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <>
+            <section className="py-20 bg-blue-600 text-white text-center">
+                <div className="max-w-4xl mx-auto px-6">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                        {data.title}
+                    </h2>
+                    <p className="text-blue-100 mb-8">
+                        {data.subtitle}
+                    </p>
+                    <button
+                        onClick={() => setOpen(true)}
+                        className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition"
+                    >
+                        {data.button}
+                    </button>
+                </div>
+            </section>
+
+            {/* Modal */}
+            <ResourcesModal open={open} onClose={() => setOpen(false)} />
+        </>
+    );
+};

@@ -233,12 +233,12 @@ export const Eng = {
             address: {
                 label: "Head Office",
                 value:
-                    "Zyron Semiconductors, Tirupati, Andhra Pradesh, India",
+                    "18-8-40D/305, Madhura Nagar, Revenue Ward No: 8, Tirupati (U), Tirupati Dist.",
             },
             emails: {
                 label: "Email Us",
-                general: "contact@zyronsemi.com",
-                hr: "careers@zyronsemi.com",
+                general: "zyronsemiconductors@gmail.com",
+                hr: "HR@zyronsemi.com",
             },
             phone: {
                 label: "Call Us",
@@ -698,7 +698,7 @@ export const Eng = {
     /* ---------- Navigation ---------- */
     nav: {
         main: [
-            { label: "About Zyron", to: "/about" },
+            { label: "About Us", to: "/about" },
             { label: "Careers", to: "/careers" },
             { label: "Community", to: "/community" },
             { label: "Resources", to: "/resources" },

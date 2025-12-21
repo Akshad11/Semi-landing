@@ -1,3 +1,6 @@
+import { useState } from "react";
+import JoinCommunityModal from "./JoinCommunityModal";
+
 interface Props {
     title: string;
     description: string;
@@ -82,14 +85,30 @@ interface JoinData {
     button: string;
 }
 
-export const CommunityJoinCTA: React.FC<{ data: JoinData }> = ({ data }) => (
-    <section className="py-20 bg-blue-600 text-white text-center">
-        <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">{data.title}</h2>
-            <p className="text-blue-100 mb-8">{data.subtitle}</p>
-            <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
-                {data.button}
-            </button>
-        </div>
-    </section>
-);
+export const CommunityJoinCTA: React.FC<{ data: JoinData }> = ({ data }) => {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <>
+            <section className="py-20 bg-blue-600 rounded-lg text-white text-center">
+                <div className="max-w-4xl mx-auto px-6">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                        {data.title}
+                    </h2>
+                    <p className="text-blue-100 mb-8">
+                        {data.subtitle}
+                    </p>
+                    <button
+                        onClick={() => setOpen(true)}
+                        className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition"
+                    >
+                        {data.button}
+                    </button>
+                </div>
+            </section>
+
+            {/* 🔹 Modal */}
+            <JoinCommunityModal open={open} onClose={() => setOpen(false)} />
+        </>
+    );
+};

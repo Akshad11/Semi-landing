@@ -1,7 +1,7 @@
 import React from "react";
 import Eng from "../content/Eng";
 import PageHeader from "../components/PageHeader";
-import { ResourceCategories, ResourcesCTA, ResourcesIntro, ResourcesList } from "../components/ResourcesDec";
+import { ResourceCategories, ResourcesCTA, ResourcesIntro, ResourcesList } from "../components/ResourcesDev";
 import Navbar from "../components/Navbar";
 
 const Resources: React.FC = () => {

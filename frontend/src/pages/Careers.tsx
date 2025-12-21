@@ -8,6 +8,7 @@ import Eng from "../content/Eng";
 import { CultureSection } from "../components/CultureSection";
 import { CareersIntro } from "../components/CareersIntro";
 import { CareersCTA } from "../components/CareersCTA";
+import ApplyJobModal from "../components/ApplyJobModal";
 
 interface JobFilterBarProps {
   search: string;
@@ -17,12 +18,24 @@ interface JobFilterBarProps {
   departments: string[];
 }
 
+interface Job {
+  title: string;
+  dept: string;
+  location: string;
+  type: string;
+}
+
+interface JobCardProps {
+  job: Job;
+  onApply: (jobTitle: string) => void;
+}
 /* ---------------- Small Components ---------------- */
 
-export const JobCard: React.FC<{ job: any }> = ({ job }) => (
-  <div className="bg-white border rounded-xl p-6 shadow-sm hover:shadow-lg transition flex flex-col justify-between">
+
+export const JobCard: React.FC<JobCardProps> = ({ job, onApply }) => (
+  <div className="bg-white border rounded-2xl p-6 shadow-sm hover:shadow-lg transition flex flex-col justify-between group">
     <div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+      <h3 className="text-xl font-semibold text-gray-900 mb-1 group-hover:text-blue-600 transition">
         {job.title}
       </h3>
       <p className="text-sm text-gray-600 mb-4">{job.dept}</p>
@@ -37,7 +50,11 @@ export const JobCard: React.FC<{ job: any }> = ({ job }) => (
       </div>
     </div>
 
-    <button className="mt-6 w-full py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition">
+    <button
+      onClick={() => onApply(job.title)}
+      className="mt-6 w-full py-2.5 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+      aria-label={`Apply for ${job.title}`}
+    >
       View & Apply
     </button>
   </div>
@@ -87,6 +104,7 @@ export const JobFilterBar: React.FC<JobFilterBarProps> = ({
 const Careers: React.FC = () => {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
+  const [selectedJob, setSelectedJob] = useState<string | null>(null);
 
   const departments = ["All", ...new Set(Eng.Careers.jobs.map((j) => j.dept))];
 
@@ -118,7 +136,7 @@ const Careers: React.FC = () => {
         <CultureSection data={Eng.Careers.culture} />
       </Section>
       {/* 🔍 Search & Filter */}
-      <Section className="max-w-7xl mx-auto py-0 mb-10">
+      <div className="max-w-7xl mx-auto py-0 mb-10 px-4 md:px6">
         <JobFilterBar
           search={search}
           onSearchChange={setSearch}
@@ -126,10 +144,10 @@ const Careers: React.FC = () => {
           onFilterChange={setFilter}
           departments={departments}
         />
-      </Section>
+      </div>
 
       {/* 💼 Jobs Grid */}
-      <Section className="max-w-7xl mx-auto py-0 pb-24">
+      <div className="max-w-7xl mx-auto py-0 px-4 md:px6 pb-24">
         {filteredJobs.length === 0 ? (
           <p className="text-center text-gray-500">
             No jobs found for your search.
@@ -137,12 +155,16 @@ const Careers: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredJobs.map((job, idx) => (
-              <JobCard key={idx} job={job} />
+              <JobCard key={idx} job={job} onApply={(title) => setSelectedJob(title)} />
             ))}
           </div>
         )}
-      </Section>
-
+      </div>
+      <ApplyJobModal
+        open={!!selectedJob}
+        jobTitle={selectedJob || ""}
+        onClose={() => setSelectedJob(null)}
+      />
       <Section className="relative z-10">
         <CareersCTA data={Eng.Careers.cta} />
       </Section>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MapPin, Mail, Phone, Send, Globe } from "lucide-react";
 import emailjs from "emailjs-com";
+import { sendEmail } from "../utils/emailService";
 
 interface ContactData {
     title: string;
@@ -39,17 +40,15 @@ const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
         setError("");
 
         try {
-            await emailjs.send(
-                import.meta.env.VITE_EMAILJS_SERVICE_ID,
-                import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-                {
+            await sendEmail({
+                templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+                subject: form.subject || "Contact Enquiry",
+                data: {
                     from_name: form.name,
                     from_email: form.email,
-                    subject: form.subject,
                     message: form.message,
                 },
-                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-            );
+            });
 
             setSuccess("Message sent successfully! We'll get back to you soon.");
             setForm({ name: "", email: "", subject: "", message: "" });
