@@ -381,6 +381,7 @@ export const Eng = {
             subtitle:
                 "Share your profile with us, and our HR team will reach out when an opportunity aligns with your skills and aspirations.",
             emailPlaceholder: "Your email address",
+            namePlaceholder: "Your full name",
             messagePlaceholder: "Tell us about your experience, skills, or career interests...",
             buttonText: "Send to Zyron HR",
             successMessage: "Thank you! Our HR team will contact you soon.",

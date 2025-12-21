@@ -37,6 +37,7 @@ export interface FooterData {
 export interface CareersCTAData {
     title: string;
     subtitle: string;
+    namePlaceholder: string;
     emailPlaceholder: string;
     messagePlaceholder: string;
     buttonText: string;

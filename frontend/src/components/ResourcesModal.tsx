@@ -29,18 +29,14 @@ const ResourcesModal: React.FC<Props> = ({ open, onClose }) => {
         }
 
         await sendEmail({
-            templateId:
-                import.meta.env.VITE_EMAILJS_RESOURCES_TEMPLATE_ID ||
-                import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-            subject: "Expert Guidance Request",
+            endpoint: '/api/contact/resources/enquiry',
             data: {
-                from_name: form.name,
-                from_email: form.email,
+                name: form.name,
+                email: form.email,
                 topic: form.topic,
                 message: form.message,
             },
         });
-
         setForm({ name: "", email: "", topic: "", message: "" });
         onClose();
     };
@@ -52,7 +48,7 @@ const ResourcesModal: React.FC<Props> = ({ open, onClose }) => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"
+                    className="fixed inset-0 z-50 flex  text-gray-900 items-center justify-center bg-black/50 px-4"
                 >
                     <motion.div
                         initial={{ scale: 0.9, y: 20 }}

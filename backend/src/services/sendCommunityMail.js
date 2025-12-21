@@ -1,18 +1,19 @@
+// services/communityMail.service.js
 const transporter = require("../config/mail.config");
 
-exports.sendContactMail = async ({ name, email, message }) => {
+exports.sendCommunityMail = async ({ name, email, interest, message }) => {
   const htmlTemplate = `
   <div style="font-family: Arial, sans-serif; background: #f4f6f8; padding: 30px;">
     <div style="max-width: 600px; margin: auto; background: #ffffff; border-radius: 8px; overflow: hidden;">
       
-      <div style="background: #2563eb; color: #fff; padding: 20px;">
-        <h2 style="margin: 0;">New Contact Enquiry</h2>
+      <div style="background: #16a34a; color: #fff; padding: 20px;">
+        <h2 style="margin: 0;">New Community Join Request</h2>
         <p style="margin: 5px 0 0;">Zyron Semiconductors Website</p>
       </div>
 
       <div style="padding: 25px;">
         <p>Hello Team,</p>
-        <p>You have received a new message from the website contact form:</p>
+        <p>A new user has requested to join the Zyron Community:</p>
 
         <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
           <tr>
@@ -24,13 +25,17 @@ exports.sendContactMail = async ({ name, email, message }) => {
             <td style="padding: 8px;">${email}</td>
           </tr>
           <tr>
+            <td style="padding: 8px; font-weight: bold;">Interest</td>
+            <td style="padding: 8px;">${interest || "N/A"}</td>
+          </tr>
+          <tr>
             <td style="padding: 8px; font-weight: bold;">Message</td>
-            <td style="padding: 8px;">${message}</td>
+            <td style="padding: 8px;">${message || "-"}</td>
           </tr>
         </table>
 
         <p style="margin-top: 30px;">
-          Please respond to the user at 
+          You can reply directly to 
           <a href="mailto:${email}">${email}</a>.
         </p>
 
@@ -48,13 +53,13 @@ exports.sendContactMail = async ({ name, email, message }) => {
     // process.env.EMAIL_GENERAL,
     // process.env.EMAIL_HR,
     process.env.EMAIL_USER
-  ].filter(Boolean); // remove undefined if any
+  ].filter(Boolean);
 
   return transporter.sendMail({
     from: `"Zyron Website" <${process.env.EMAIL_USER}>`,
-    to: recipients.join(","),   // ✅ now sends to both
+    to: recipients.join(","),
     replyTo: email,
-    subject: `New Contact Message from ${name}`,
+    subject: `New Community Join Request - ${name}`,
     html: htmlTemplate,
   });
 };

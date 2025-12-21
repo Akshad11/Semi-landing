@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { X, Send } from "lucide-react";
-import emailjs from "emailjs-com";
 import { sendEmail } from "../utils/emailService";
 
 interface Props {
@@ -69,18 +68,17 @@ const ApplyJobModal: React.FC<Props> = ({ open, onClose, jobTitle }) => {
 
         try {
             const data: any = {
-                from_name: form.name,
-                from_email: form.email,
+                name: form.name,
+                email: form.email,
                 phone: form.phone,
-                job_title: jobTitle,
+                position: jobTitle,
                 message: form.message,
-                resume: form.resume ? await toBase64(form.resume) : "",
+                resumeBase64: form.resume ? await toBase64(form.resume) : "",
+                resumeName: form.resume?.name
             };
 
             await sendEmail({
-                templateId: import.meta.env.VITE_EMAILJS_CAREERS_TEMPLATE_ID,
-                subject: `Job Application - ${jobTitle}`,
-                data
+                data, endpoint: '/api/contact/apply'
             });
 
             setSuccess("Application sent successfully!");

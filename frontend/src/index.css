@@ -4,7 +4,7 @@
 
 body {
     background-color: white;
-    color: #e5e5e5;
+    color: black;
     overflow-x: hidden;
     @apply font-sans;
 }

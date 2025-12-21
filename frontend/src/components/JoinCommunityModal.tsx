@@ -44,13 +44,10 @@ const JoinCommunityModal: React.FC<JoinCommunityModalProps> = ({
 
         try {
             await sendEmail({
-                templateId:
-                    import.meta.env.VITE_EMAILJS_COMMUNITY_TEMPLATE_ID ||
-                    import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-                subject: "Join Zyron Community",
+                endpoint: '/api/contact/community',
                 data: {
-                    from_name: form.name,
-                    from_email: form.email,
+                    name: form.name,
+                    email: form.email,
                     interest: form.interest,
                     message: form.message,
                 },
@@ -70,7 +67,7 @@ const JoinCommunityModal: React.FC<JoinCommunityModalProps> = ({
         <AnimatePresence>
             {open && (
                 <motion.div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
+                    className="fixed inset-0 z-50 text-gray-900 flex items-center justify-center bg-black/60 px-4"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}

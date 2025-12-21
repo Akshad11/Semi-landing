@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import emailjs from "emailjs-com";
 import { CareersCTAData } from "../types";
 import { sendEmail } from "../utils/emailService";
 
@@ -9,6 +8,7 @@ interface CareersCTAProps {
 
 export const CareersCTA: React.FC<CareersCTAProps> = ({ data }) => {
     const [form, setForm] = useState({
+        name: "",
         email: "",
         message: "",
     });
@@ -30,19 +30,17 @@ export const CareersCTA: React.FC<CareersCTAProps> = ({ data }) => {
 
         try {
             await sendEmail({
-                templateId:
-                    import.meta.env.VITE_EMAILJS_CAREERS_TEMPLATE_ID ||
-                    import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-                subject: "Careers Enquiry",
+                endpoint: '/api/contact',
                 data: {
-                    from_email: form.email,
+                    name: form.name,
+                    email: form.email,
                     message: form.message,
                 },
             });
 
 
             setSuccess(data.successMessage);
-            setForm({ email: "", message: "" });
+            setForm({ name: "", email: "", message: "" });
         } catch (err) {
             console.error(err);
             setError(data.errorMessage);
@@ -63,6 +61,15 @@ export const CareersCTA: React.FC<CareersCTAProps> = ({ data }) => {
 
                 <div className="bg-white rounded-2xl p-8 shadow-xl max-w-2xl mx-auto text-gray-900">
                     <div className="space-y-5">
+                        <input
+                            type="name"
+                            name="name"
+                            value={form.name}
+                            onChange={handleChange}
+                            placeholder={data.namePlaceholder}
+                            required
+                            className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
                         <input
                             type="email"
                             name="email"

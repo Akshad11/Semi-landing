@@ -41,11 +41,10 @@ const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
 
         try {
             await sendEmail({
-                templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-                subject: form.subject || "Contact Enquiry",
+                endpoint: '/api/contact',
                 data: {
-                    from_name: form.name,
-                    from_email: form.email,
+                    name: form.name,
+                    email: form.email,
                     message: form.message,
                 },
             });
@@ -140,7 +139,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
                     </div>
 
                     {/* Right Form */}
-                    <div className="bg-white rounded-3xl shadow-xl p-8 md:p-10">
+                    <div className="bg-white text-gray-900 rounded-3xl shadow-xl p-8 md:p-10">
                         <h3 className="text-2xl font-bold text-gray-900 mb-8">
                             {data.formTitle}
                         </h3>

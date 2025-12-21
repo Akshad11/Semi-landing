@@ -1,14 +1,22 @@
 const { sendContactMail } = require("../services/mail.service");
 
-exports.sendContact = async (req, res, next) => {
+exports.contactController = async (req, res) => {
     try {
-        await sendContactMail(req.body);
+        const { name, email, message } = req.body;
+        console.log(req.body);
+        if (!name || !email || !message) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
 
-        res.status(200).json({
-            success: true,
+        await sendContactMail({ name, email, message });
+
+        return res.status(200).json({
             message: "Message sent successfully",
         });
     } catch (error) {
-        next(error);
+        console.error("Contact mail error:", error);
+        return res.status(500).json({
+            message: "Failed to send message",
+        });
     }
 };
